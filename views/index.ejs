@@ -16,9 +16,13 @@
         <br>
        ******</p>
     </div>
-     
+    
+    <% if (message) { %>
+        <div class="warning">*<%= message %></div>
+    <% } %>
+
     <div class="div-form">
-      <form action="/upload" method="post" class="form">
+      <form action="/upload" method="post" class="form" enctype="multipart/form-data">
         <div class="upload-image">
           <input type="file" name="image" class="input-image" />
         </div>
