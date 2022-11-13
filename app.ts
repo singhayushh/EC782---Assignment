@@ -54,20 +54,21 @@ const upload = multer({
 
 // Routes
 app.get("/", (req: express.Request, res: express.Response) => {
-    res.render("index", {});
+    let message=req.query.message || "";
+    res.render("index", {message});
 });
 
 app.post("/upload", upload.single("image"), async (req: express.Request, res: express.Response) => {
     try {
         const file = req.file;
-        if (!file) return res.redirect("/")
+        if (!file) return res.redirect("/?message=Please attach an appropriate file")
         // do something
         const pythonProcess = spawn("python", ["./script.py", String(file.path)]);
         pythonProcess.stdout.on("data", (data) => {
             res.render("result", { data });
         });
     } catch (error: any) {
-        return res.redirect("/")
+        return res.redirect("/?message=SERVER_ERROR")
     }
 });
 
