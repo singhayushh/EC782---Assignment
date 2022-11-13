@@ -4,6 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import express from "express";
 import multer from "multer";
+import { spawn } from "child_process";
 
 dotenv.config();
 
@@ -22,7 +23,12 @@ app.use(express.static(path.join(__dirname, "../static")));
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./uploads/");
-    }
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix =
+            String(Date.now()) + "-" + Math.round(Math.random() * 1e9);
+        cb(null, uniqueSuffix + "-" + file.originalname);
+    },
 });
 
 const upload = multer({
@@ -48,13 +54,21 @@ const upload = multer({
 
 // Routes
 app.get("/", (req: express.Request, res: express.Response) => {
-    res.render("index", {  });
+    res.render("index", {});
 });
 
-app.post("/upload", upload.single("image"), (req: express.Request, res: express.Response) => {
-    const file = req.body.file;
-    // do something
-    res.render("result", {  });
+app.post("/upload", upload.single("image"), async (req: express.Request, res: express.Response) => {
+    try {
+        const file = req.file;
+        if (!file) return res.redirect("/")
+        // do something
+        const pythonProcess = spawn("python", ["./script.py", String(file.path)]);
+        pythonProcess.stdout.on("data", (data) => {
+            res.render("result", { data });
+        });
+    } catch (error: any) {
+        return res.redirect("/")
+    }
 });
 
 app.listen(port, () => {
