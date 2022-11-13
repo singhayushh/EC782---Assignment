@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
     <title>EC782 Assignment</title>
-</head>
-<body>
-    <h1>Hello World</h1>
+  </head>
+  <body>
+    <h1>Diabetic retinopathy detection</h1>
+
+    <div class="instructions"> 
+      <h4>How to use this model</h4>
+      <p class="how-to-use">To use this model just follow these steps
+        <br>
+       ******</p>
+    </div>
+     
+    <div class="div-form">
+      <form action="/upload" method="post" class="form">
+        <div class="upload-image">
+          <input type="file" name="image" class="input-image" />
+        </div>
+
+        <div class="submit-btn">
+          <button type="submit" class="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="informations">
+      <h2>About Diabetic retinopathy</h2>
+      <p class="info">
+        Diabetic retinopathy is a complication of diabetes, caused by high blood
+        sugar levels damaging the back of the eye (retina).
+        <br>
+        <br>
+        <br>
+         It can cause
+        blindness if left undiagnosed and untreated. However, it usually takes
+        several years for diabetic retinopathy to reach a stage where it could
+        threaten your sight. 
+        <br>
+        <br>
+        <br>
+        To minimise the risk of this happening, people with
+        diabetes should: ensure they control their blood sugar levels, blood
+        pressure and cholesterol attend diabetic eye screening appointments –
+        annual screening is offered to all people with diabetes aged 12 and over
+        to pick up and treat any problems early on
+      </p>
+    </div>
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/script.js"></script>
-</body>
+  </body>
 </html>
